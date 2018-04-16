@@ -5,11 +5,11 @@
     <title>fila</title>
     <style media="screen">
       html, body { padding: 0; margin: 0;  width: 100%; height: 100%; }
-      #stage { width: 100%; height: 100%; background: #222; color: #FFF; font-family: helvetica, sans-serif; letter-spacing: -1px; overflow: hidden;}
+      #stage { width: 100%; height: 100%; background: #222; color: #FFF; font-family: helvetica, sans-serif; letter-spacing: -1px; overflow-y: scroll;}
       .title { font-size: 120px; font-weight: bold; position: relative; left: 10%; top: 37%;}
       .author { font-size: 50px;  position: relative; left: 10%; top: 40%;}
       .heading { font-size: 100px; font-weight: bold; position: relative; left: 10%; top: 100%;}
-      .content { font-size: 40px; width: 60%; position: relative; left: 10%; top: 15%; line-height: 50px; letter-spacing: 0px;}
+      .content { font-size: 38px; width: 60%; position: relative; left: 10%; top: 100%; line-height: 50px; letter-spacing: 0px; margin: 20px 0;}
     </style>
   </head>
   <body>
@@ -30,6 +30,7 @@
       currentHeading = 0;
       currentPoint = 0;
       pointLength = 0;
+      arrayPos = 0;
 
       function createClass(name, value){
         // creating Element & Class for JSON.
@@ -46,14 +47,7 @@
         createClass("author",presentation.date);
       }
       function controller(){
-        // controlling the Slides
-        // if the CurrentHeading is zero or current Point is the last of its heading.
-        if ( currentHeading == 0 && currentPoint == pointLength ){
-         currentHeading = currentHeading++;
-         createClass("heading",presentation.content[currentHeading]);
-        // pointLength =
-         stage.scrollBy(0,500);
-        }
+        
       }
 
       init();
