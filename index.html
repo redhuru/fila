@@ -28,7 +28,7 @@
 
       stage = document.getElementById('stage');
       headingLength = pointLength = arrayLength = 0;
-      currentHeading = currentPoint = currentArray = 0;
+      currentHeading = currentPoint = currentArray = 1;
 
       function createClass(name, value){
         // creating Element & Class for JSON.
@@ -44,6 +44,16 @@
         createClass("title",presentation.title);
         createClass("author",presentation.date);
 
+        headingLength = Object.keys(presentation.content).length;
+        createClass("heading",presentation.content[currentHeading]);
+
+        if ( Array.isArray(presentation.content[(currentHeading+'.'+currentPoint)]) ){
+          arrayLength = presentation.content[(currentHeading+'.'+currentPoint)].length;
+        } else {
+          console.log(":is not Array");
+        }
+
+        // jump to the first heading
       }
       function controller(){
 
