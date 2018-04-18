@@ -42,9 +42,18 @@
         createClass("title",presentation.title);
         createClass("author",presentation.date);
 
-      //  console.log(Object.keys(presentation.content));
         for ( point of Object.keys(presentation.content) ) {
           console.log(point);
+          if ( Number.isInteger(Number(point)) ) {
+            createClass("heading", presentation.content[point]);
+          } else if ( Array.isArray(presentation.content[point]) ) {
+            console.log("in Array");
+            // for ( points of presentation.content[point] ) {
+            //   createClass("content", presentation.content[point][points]);
+            // }
+          } else {
+          //  createClass("content", presentation.content[point]);
+          }
         }
 
 
