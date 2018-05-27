@@ -7,54 +7,58 @@
   <style media="screen">
     * {padding: 0; margin: 0;}
     html, body { width: 100%; height: 100%;}
-    .light {background: #eee;}
-    .dark {background: #333; color: #fff;}
-    .main { width: 100%; height: 100%; overflow: auto;}
-    .stage { width: 100%; height: 100%; position: relative;}
+    body { overflow: hidden; }
+    .light .stage {background: #eee;}
+    .dark .stage{background: #333; color: #fff;}
+    .main { width: 100%; height: 100%; }
+    .stage { width: 100%; height: 100%; position: relative; overflow: auto;}
     .author {margin-top: 40%; }
-    .left div {margin-left: 12%; z-index: 20;}
-    .right div {margin-left: 12%; z-index: 20;}
-    .background { margin: 0; position: absolute; top: 0; bottom: 0; width: 100%; height: 100%; z-index: 10;}
     .title { font-weight: bold;}
-    .heading { font-size: 49px; font-weight: bold; position: relative;}
-    .content, .author, .title, .date { font-size: 49px; position: relative;}
+    .left .heading, .left .content, .left .title, .left .author, .left .date {padding-left: 15%;}
+    .right .heading, .right .content, .right .title, .right .author, .right .date {padding-left: 15%;}
+    .heading { margin-top: 13%; margin-bottom: 20px; font-size: 49px; font-weight: bold; position: relative;}
+    .content, .author, .title, .date { font-size: 49px; position: relative; z-index: 20;}
+    .component-code { position: relative; top: 20px; margin: 13% 5% 5% 5%; font-size: 30px; font-family: monospace; letter-spacing: -1px; background: #353535; border-radius: 5px; overflow: hidden;}
+    .component-code .code-copy { font-size: 20px; padding: 10px; text-align: right; background: #272727;}
+    .code-line { font-size: 23px; background: #1d1d1d; float: left; width: 20px; left: 0; padding: 10px 15px; line-height: 38px; color: #a0a0a0;}
+    .code { position: relative; font-style: italic; padding: 10px; left: 15px;}
+    .code span { font-style: normal; color: #ff6347; font-weight: bold;}
+    .background { margin: 0; position: absolute; top: 0; bottom: 0; width: 100%; height: 100%; z-index: 10; }
+    .clear .heading {margin-top: 0; top: 80px;}
+    .clear .component-code { margin-top: 0; }
     .left { width: 50%; float: left; position: relative; }
     .right {width: 50%; float: right; position: relative; }
     .center { text-align: center;}
     .clear {clear: both;}
   </style>
   <body>
-    <div class="main light">
+    <div class="main dark">
       <div class="stage">
-        <div class="content right">
-          <div class="author">Affan Jaufar</div>
-          <div class="title">
-            Welcome
-          </div>
-          <div class="title">
-            World.
-          </div>
-          <div class="date">
-            This is the Left Content Paragraphs.
+
+        <div class="content left">
+          <div class="component-code">
+            <div class="code-copy">copy</div>
+            <div class="code-line">1 2 3 4 5 6 7 8 9 </div>
+            <div class="code">
+              <span>If</span> condition <span>then</span><br>
+              &nbsp; statements<br>
+              <span>End If </span>
+            </div>
           </div>
         </div>
-        <div class="background" style="background:#3ee; ">
-          background
-        </div>
+        <!-- <div class="background" style="background:#ccc; "></div> -->
       </div>
-      <div class="stage" style="background:#ddd;">
+      <div class="stage" >
         <div class="content left">
           <div class="heading">What is Fila</div>
           <div class="content">
             This is the Left Content Paragraphs.
           </div>
-          <div class="content">
-            This is the Left Content Paragraphs.
-          </div>
+          <div class="content">This is the Left Content Paragraphs.</div>
         </div>
-        <div class="content center clear">
+        <!-- <div class="content center clear">
             Content from no Where
-        </div>
+        </div> -->
         <div class="content right">
           <div class="heading">
             Right
@@ -67,7 +71,34 @@
     </div>
     <script src="content.js"></script>
     <script type="text/javascript">
+      // Controller
+        stages = document.getElementsByClassName('stage');
+        stage = ["0"];
+        for (let x=0; x < stages.length; x++) {
+          stage.push(stages[x].getBoundingClientRect().bottom);
+        }
+        now = 0;
+        console.log(stage);
 
+       document.addEventListener("click", function(){
+         if (now < (stage.length-2) ) { now++; scroller(); }
+       });
+        document.addEventListener("keyup", function(Event){
+          code = Event.keyCode;
+          if (code == 38) { //up
+            if (now != 0) { now--; scroller(); }
+          } else if (code == 40) { //down
+            if (now < (stage.length-1) ) { now++; scroller(); }
+          }
+        });
+
+       function scroller(){
+         console.log(now);
+         window.scrollTo({
+           top: (stage[now]),
+           behavior: "smooth"
+         });
+        }
     </script>
   </body>
 </html>
