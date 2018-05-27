@@ -2,69 +2,53 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>fila</title>
-    <style media="screen">
-      html, body { padding: 0; margin: 0;  width: 100%; height: 100%; }
-      #stage { width: 100%; height: 100%; background: #222; color: #FFF; font-family: helvetica, sans-serif; letter-spacing: -1px; overflow-y: scroll;}
-      .title { font-size: 120px; font-weight: bold; position: relative; left: 10%; top: 37%; margin: 10px 0;}
-      .author { font-size: 40px;  position: relative; left: 10%; top: 37%; }
-      .heading { font-size: 100px; font-weight: bold; position: relative; left: 10%; top: 100%;}
-      .content { font-size: 38px; width: 60%; position: relative; left: 10%; top: 100%; line-height: 50px; letter-spacing: 0px; margin: 20px 0;}
-    </style>
+    <title>Fila</title>
   </head>
+  <style media="screen">
+    * {padding: 0; margin: 0;}
+    html, body { width: 100%; height: 100%;}
+    .light {background: #eee;}
+    .dark {background: #333; color: #fff;}
+    .main { width: 100%; height: 100%;}
+    .stage { width: 100%; height: 100%;}
+    .content-wrap { width: 45%; }
+    .heading { font-size: 49px; font-weight: bold; position: relative;}
+    .content { font-size: 49px; position: relative;}
+    .left {float: left; position: relative;}
+    .right {float: right; position: relative; }
+    .center { text-align: center;}
+    .clear {clear: both;}
+  </style>
   <body>
-    <div id="stage">
-  <!--
-      <div class="title"></div>
-      <div class="author"></div>
-      <div class="author"></div>
-
-      <div class="heading">What is Fila.</div>
-      <div class="content">Fila is a very simple JSON based Presentation Tool. Since Fila used Web to Present, its by Default Platform Independent. Fila JSON file can be edited using any text editor, freeing its user from installing tools to manage the presentation. <br><br> Its Open. Its Free. Its Web. Its Yours.</div>
-    -->
+    <div class="main light">
+      <div class="stage">
+        <div class="content-wrap left">
+          <div class="heading">
+            Left
+          </div>
+          <div class="content">
+            This is the Left Content Paragraphs.
+          </div>
+          <div class="content">
+            This is the Left Content Paragraphs.
+          </div>
+        </div>
+        <div class="content center clear">
+            Content from no Where
+        </div>
+        <div class="content-wrap right">
+          <div class="heading">
+            Right
+          </div>
+          <div class="content">
+            This is the Right Content Paragraphs.
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="content.js" ></script>
+    <script src="content.js"></script>
     <script type="text/javascript">
 
-      stage = document.getElementById('stage');
-
-      function createClass(name, value){
-        // creating Element & Class for JSON.
-        el = document.createElement("div");
-        el.className += name;
-        el.textContent = value;
-        stage.appendChild(el);
-      }
-
-      function init(){
-        // initializing the Enviroment.
-        createClass("author",presentation.author);
-        createClass("title",presentation.title);
-        createClass("author",presentation.date);
-
-        for ( point of Object.keys(presentation.content) ) {
-          console.log(point);
-          if ( Number.isInteger(Number(point)) ) {
-            createClass("heading", presentation.content[point]);
-          } else if ( Array.isArray(presentation.content[point]) ) {
-            console.log("in Array");
-            // for ( points of presentation.content[point] ) {
-            //   createClass("content", presentation.content[point][points]);
-            // }
-          } else {
-          //  createClass("content", presentation.content[point]);
-          }
-        }
-
-
-        // jump to the first heading
-      }
-      function controller(){
-
-      }
-
-      init();
-      document.addEventListener("click", controller);
     </script>
   </body>
 </html>
