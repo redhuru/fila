@@ -15,6 +15,7 @@
     .contents {padding: 5% 5% 0% 5%; z-index: 20;}
     .heading {font-size: 49px; font-weight: bold; position: relative;}
     .content, .author, .title, .date { font-size: 40px; position: relative; z-index: 20;}
+    .content { margin-top: 7%; }
     .component-code { margin-top: 10px; position: relative; font-size: 30px; font-family: monospace; letter-spacing: -1px; background: #353535; border-radius: 5px; overflow: hidden;}
     .component-code .code-copy { font-size: 15px; padding: 10px; text-align: right; background: #272727;}
     .code-line { font-size: 23px; background: #1d1d1d; float: left; width: 20px; left: 0; padding: 10px 15px; line-height: 38px; color: #a0a0a0;}
@@ -42,22 +43,53 @@
     </div> <!-- main div -->
     <script src="content.js"></script>
     <script type="text/javascript">
-        function createElm(cl, pr, i, co){
+        main = document.getElementsByClassName('main')[0];
+
+        function createElm(root, pr, pri, ch, co){
           el = document.createElement("div");
-          el.className = cl;
-          document.getElementsByClassName(pr)[i].appendChild(el);
+          el.className = ch;
           if (co) { el.innerHTML= co }
+          if (ch == "stage") { doc=document; }
+          if (ch.)
+          root.getElementsByClassName(pr)[pri].appendChild(el);
         }
-        createElm("stage","main", 0);
-        left = 0, right = 0, center =0;
-        for (let prop in presentation) {
-          console.log(prop);
-          if (prop.match(/\:/g)){
+
+        function setElm(st, sti, pr, pri){
+          if (!(pr.getElementsByClassName(st)[sti])){
+            createElm(document, "main", 0, "stage");
 
           }
+
         }
 
-        
+        function getElm(i){
+          console.log("creating Stage");
+          if (!(document.getElementsByClassName('stage')[i])) { createElm(document, "main", 0, "stage"); }
+          return document.getElementsByClassName('stage')[i];
+        }
+
+        function checkContents(st, cl){
+          doc = document.getElementsByClassName('stage')[st];
+          if (!(doc.getElementsByClassName(cl))) {
+            return false;
+            //createElm("contents left", "stage", prop, '<div class="content">'+presentation[prop]+'</div>');
+          } else { return true; }
+        }
+
+        // getStage(0);
+        for (let prop in presentation) {
+          console.log(prop);
+          if (prop.match(/^\d(?!:)/)) {
+           console.log(":"); //
+           setElm("stage",prop, main);
+           //createElm(pr,"contents left",)
+         } else if (prop.match(/^\d:\d$/)) {
+           console.log(":Number");
+           selElm("stage",sp[0],"content left",sp[1])
+         }
+        }
+
+
       // Controller
         stages = document.getElementsByClassName('stage');
         stage = ["0"];
