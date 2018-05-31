@@ -43,11 +43,15 @@
     </div> <!-- main div -->
     <script src="content.js"></script>
     <script type="text/javascript">
-        function createElm(sti, co){
+        clear = true;
+        function createElm(sti, cl, subcl, co){
           if (!(document.getElementsByClassName("stage")[sti])) {
-            el = document.createElement("div");
-            el.className = "stage";
-            document.getElementsByClassName("main")[0].appendChild(el);
+            setElm(document.getElementsByClassName("main")[0],"stage");
+          }
+          st = document.getElementsByClassName("stage")[sti];
+          if (clear) {
+            setElm(st,cl);
+            clear =false;
           }
           //stage contents content | heading | author |
           // el = document.createElement("div");
@@ -55,9 +59,16 @@
           // if (co) { el.innerHTML = co; }
           // doc.getElementsByClassName(pr)[i].appendChild(el);
         }
+
+        function setElm(pr, cl, co){
+          el = document.createElement("div");
+          el.className = cl;
+          if (co) { el.innerHTML = co; }
+          pr.appendChild(el);
+        }
         for (let prop in presentation) {
           if (prop.match(/^\d(?!:)/)) {
-            createElm(prop, presentation[prop]);
+            createElm(prop, "contents left", "heading", presentation[prop]);
             //
             //createElm(presentation[prop], "heading");
           }
