@@ -26,6 +26,7 @@
     .bgleft { left: 50%; width: 50%;}
     .bgright { right: 50%; width: 50%;}
     .clear .component-code { margin-top: 0; }
+    .notoppad { padding-top: 0; }
     .left { width: 40%; float: left; position: relative; }
     .right {width: 40%; float: right; position: relative; }
     .center { text-align: center;}
@@ -43,21 +44,35 @@
     </div> <!-- main div -->
     <script src="content.js"></script>
     <script type="text/javascript">
-        clear = true;
+        isClear = true;
         function createElm(sti, cl, subcl, co){
           if (!(document.getElementsByClassName("stage")[sti])) {
             setElm(document.getElementsByClassName("main")[0],"stage");
+            isClear= true;
           }
           st = document.getElementsByClassName("stage")[sti];
-          if (clear) {
-            setElm(st,cl);
-            clear =false;
+          if (isClear || subcl.match(/clear/g)) {
+            console.log("cleared");
+            if (st.getElementsByClassName(cl).length > 0){
+              cl += " notoppad";
+            }
+            cl = setElm(st,cl);
+            setElm(cl,subcl, co);
+            if (subcl.match(/clear/g)) {
+              isClear = true;
+            } else {
+              isClear =false;
+            }
+          } else {
+            if (st.getElementsByClassName(cl).length == 0){
+              cl = setElm(st,cl);
+              setElm(cl,subcl, co);
+            } else {
+              cl = st.getElementsByClassName(cl);
+              cl = cl[(cl.length-1)];
+              setElm(cl, subcl, co)
+            }
           }
-          //stage contents content | heading | author |
-          // el = document.createElement("div");
-          // el.className = cl;
-          // if (co) { el.innerHTML = co; }
-          // doc.getElementsByClassName(pr)[i].appendChild(el);
         }
 
         function setElm(pr, cl, co){
@@ -65,12 +80,21 @@
           el.className = cl;
           if (co) { el.innerHTML = co; }
           pr.appendChild(el);
+          return el;
         }
+
         for (let prop in presentation) {
+          console.log(prop);
           if (prop.match(/^\d(?!:)/)) {
             createElm(prop, "contents left", "heading", presentation[prop]);
-            //
-            //createElm(presentation[prop], "heading");
+          } else if (prop.match(/^\d:\d/)) {
+            pa = prop.split(":");
+            if (!pa[2] || pa[2] == "left") {
+              pa[2] = "left";
+            } else if (pa[2] == "clear" || pa[2] == "center" ){
+              pa[2] = null, pa[3] = "center clear"
+            }
+            createElm(pa[0], "contents "+pa[2], "content " +pa[3], presentation[prop]);
           }
         }
 
