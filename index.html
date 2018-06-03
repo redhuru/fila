@@ -91,10 +91,13 @@
             pa = prop.split(":");
             if (!pa[2] || pa[2] == "left") {
               pa[2] = "left";
+              createElm(pa[0], "contents "+pa[2], "content", presentation[prop]);
             } else if (pa[2] == "clear" || pa[2] == "center" ){
-              pa[2] = null, pa[3] = "center clear"
+              pa[3] = "center clear";
+              createElm(pa[0], "contents ", "content " +pa[3], presentation[prop]);
+            } else if (pa[2] == "right"){
+              createElm(pa[0], "contents "+pa[2], "content", presentation[prop]);
             }
-            createElm(pa[0], "contents "+pa[2], "content " +pa[3], presentation[prop]);
           }
         }
 
