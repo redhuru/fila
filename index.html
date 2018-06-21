@@ -88,7 +88,7 @@
           if (prop.match(/^\d(?!:)/)) {
             createElm(prop, "contents left", "heading", presentation[prop]);
           } else if (prop.match(/^\d:\d/)) {
-            pa = prop.split(":");
+            let pa = prop.split(":");
             if (!pa[2] || pa[2] == "left") {
               pa[2] = "left";
               createElm(pa[0], "contents "+pa[2], "content", presentation[prop]);
@@ -97,6 +97,19 @@
               createElm(pa[0], "contents ", "content " +pa[3], presentation[prop]);
             } else if (pa[2] == "right"){
               createElm(pa[0], "contents "+pa[2], "content", presentation[prop]);
+            }
+          } else if (prop.match(/^\d:code/)){
+            console.log("is a COde");
+            let pa = prop.split(":");
+            let content = '<div class="component-code"><div class="code-copy">copy</div><div class="code-line">1 2 3 4 5 6 7 8 9</div><div class="code">'+presentation[prop]+'</div></div>';
+            if (!pa[2] || pa[2] == "right") {
+              pa[2] = "right";
+              createElm(pa[0], "contents "+pa[2], "content", content);
+            } else if (pa[2] == "clear" || pa[2] == "center" ){
+              pa[3] = "center clear";
+              createElm(pa[0], "contents ", "content " +pa[3], content);
+            } else if (pa[2] == "left"){
+              createElm(pa[0], "contents "+pa[2], "content", content);
             }
           }
         }
